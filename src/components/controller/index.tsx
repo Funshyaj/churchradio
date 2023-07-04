@@ -27,7 +27,7 @@ export const CurrentlyPlaying: React.FC<CurrentlyPlayingProps> = ({
 export const MediaController: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [songName , setSongName] = useState<string>('Jesus is Lord - Drake')
-  const [songAudio, setSongAudio] = useState<string>('')
+  // const [songAudio, setSongAudio] = useState<string>('')
 
 
   const songs = [
@@ -43,30 +43,43 @@ export const MediaController: React.FC = () => {
         await audio.play();
    }
 
-const next = async () => {
-  await setSongName(songs[Math.floor(Math.random()*songs.length)].songName);
+   const prev = () => {
+    // find the index of the current song and subtract it by one to get the prev
+
+  // picks a random song and plays it
+   setSongName(songs[Math.floor(Math.random()*songs.length)].songName);
+   if(isPlaying)play();
+   }
+
+   const next = () => {
+  // picks a random song and plays it
+   setSongName(songs[Math.floor(Math.random()*songs.length)].songName);
+   if(isPlaying)play();
 }
   return (
     <>
       <CurrentlyPlaying songName={songName}/>
       <MediaControllerContainer>
-        <Button size="large" variant="outlined">
-          <FaBackward onClick={()=>{ next(); play()}}/>
+        {/* prev button */}
+        <Button size="large" variant="outlined" onClick={()=>{ prev()}}>
+          <FaBackward/>
         </Button>
+
+        {/* play button */}
         <Button
           variant="outlined"
           size="large"
           onClick={() => {
             setIsPlaying(!isPlaying);
-            if(!isPlaying){
-              play();
-           }
+            if(isPlaying)play();
           }}
         >
           {isPlaying ? <FaPause /> : <FaPlay />}
         </Button>
-        <Button variant="outlined" size="large">
-          <FaForward onClick={()=>{ next() ; play()}}/>
+
+          {/* next button */}
+        <Button variant="outlined" size="large" onClick={()=>{ next()}}>
+          <FaForward/>
         </Button>
       </MediaControllerContainer>
     </>

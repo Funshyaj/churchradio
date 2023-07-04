@@ -6,8 +6,8 @@ export const MediaControllerContainer = styled.div`
   bottom: 20px;
   right: 50%;
   transform: translateX(50%);
-  width: 600px;
   display: flex;
+  width:100%;
   justify-content: space-between;
   align-items: center;
 
@@ -16,16 +16,26 @@ export const MediaControllerContainer = styled.div`
   }
 
   & button:nth-of-type(2) {
-    font-size: 60px;
+    font-size: 45px;
   }
+
+  @media(min-width:768px){
+    width:70%;
+  }
+
+  @media(min-width:1024px){
+    width:50%;
+  }
+
+ 
 `;
 
 export const CurrentlyPlayingContainer = styled.div`
   color: #fff;
   position: absolute;
-  bottom: 20px;
+  bottom: 20%;
   height: 100px;
-  left: 40px;
+  left: 10%;
   font-size: 24px;
   align-items: center;
   display: flex;
@@ -37,5 +47,14 @@ export const CurrentlyPlayingContainer = styled.div`
     transform: translateY(-25%);
     margin: 0;
     border-bottom: 1px solid #fff;
+  }
+
+  @media(min-width:768px){
+    left:30px;
+  }
+
+  @media(min-width:1024px){
+    left:20px;
+    bottom:20px
   }
 `;
