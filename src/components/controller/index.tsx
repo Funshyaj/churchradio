@@ -29,7 +29,6 @@ export const MediaController: React.FC = () => {
   const [songName , setSongName] = useState<string>('Jesus is Lord - Drake')
   // const [songAudio, setSongAudio] = useState<string>('')
 
-
   const songs = [
     {songName:'Halleluja - donny',songAudio:'link to song'},
     {songName:'bles lord - joghn',songAudio:'link to song'},
@@ -37,10 +36,14 @@ export const MediaController: React.FC = () => {
     {songName:'Hall - d',songAudio:'link to song'}
    ]
 
+   const audio = new Audio("https://www.fesliyanstudios.com/play-mp3/38"); 
 
    const play = async () => {
-    const audio = new Audio("https://www.fesliyanstudios.com/play-mp3/387"); 
         await audio.play();
+   }
+
+   const pause = async () => {
+    await audio.pause();
    }
 
    const prev = () => {
@@ -48,14 +51,30 @@ export const MediaController: React.FC = () => {
 
   // picks a random song and plays it
    setSongName(songs[Math.floor(Math.random()*songs.length)].songName);
-   if(isPlaying)play();
-   }
+    setIsPlaying(true)
+    play()
+  }
 
    const next = () => {
   // picks a random song and plays it
    setSongName(songs[Math.floor(Math.random()*songs.length)].songName);
-   if(isPlaying)play();
+   setIsPlaying(true)
+   play()
 }
+   
+   const player = () => {
+
+    setIsPlaying(!isPlaying);
+
+    if(!isPlaying){
+    play()
+    console.log('playing');
+   } else if (isPlaying){
+    console.log('pasused')
+    pause()
+   }
+  }
+
   return (
     <>
       <CurrentlyPlaying songName={songName}/>
@@ -69,10 +88,7 @@ export const MediaController: React.FC = () => {
         <Button
           variant="outlined"
           size="large"
-          onClick={() => {
-            setIsPlaying(!isPlaying);
-            if(isPlaying)play();
-          }}
+          onClick={() => player()}
         >
           {isPlaying ? <FaPause /> : <FaPlay />}
         </Button>
